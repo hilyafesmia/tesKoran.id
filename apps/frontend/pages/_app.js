@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import "../styles/reset.css";
 import "../styles/globals.css";
 import Layout from "../components/layout.js";
 import { SwitchTransition, CSSTransition } from "react-transition-group";

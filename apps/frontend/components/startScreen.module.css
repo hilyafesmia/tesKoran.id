@@ -4,47 +4,70 @@
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  width: 100%;
+  /* max-width: 768px; */
 }
 
 .menuContainer {
   display: flex;
   flex-direction: column;
-  width: 450px;
+  max-width: 512px;
+  width: 100%;
   font-size: large;
+  gap: 32px;
 }
 
-.menuRow,
+.menuRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .menuChoice {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 8px;
 }
 
 .menuHeader {
   width: 100px;
   display: flex;
   justify-content: space-between;
-  /* font-weight: bold; */
+  font-weight: bold;
+  /* font-family: var(--title); */
+  font-size: 0.75rem;
+  color: var(--dark-grey);
+  text-transform: uppercase;
 }
 
-.menuHeader::after {
+/* .menuHeader::after {
   content: ":";
-}
+} */
 
-.menuChoice > div:not(:last-child):after {
+/* .menuChoice > div:not(:last-child):after {
   content: "/";
   color: black;
   cursor: default;
-}
+} */
 
 .startButton {
   display: flex;
   justify-content: center;
-  /* font-weight: bold; */
+  background-color: var(--primary);
+  color: var(--on-primary);
+  padding: 12px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .clickable {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   color: black;
   transition: 0.3s;
+  background-color: var(--grey);
 }
 
 .clickable:hover {
@@ -59,11 +82,13 @@
 .activeChoice,
 .activeChoice:hover {
   transition: 0.1s;
-  color: darkorange;
+  color: var(--on-secondary);
+  background-color: var(--secondary);
 }
 
 .strikethrough {
   text-decoration: line-through;
+  color: var(--dark-grey);
 }
 
 .horizontalSep {
@@ -106,6 +131,10 @@
   border-radius: 4px;
   font-family: monospace;
   font-size: large;
+}
+
+.horizontalScroll {
+  overflow-x: scroll;
 }
 
 @media only screen and (max-width: 600px) {

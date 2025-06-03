@@ -2,6 +2,7 @@ import styles from "./startScreen.module.css";
 import cn from "classnames";
 import { ACTIONS, MODE, TYPE } from "../utils/constants.js";
 import { useWindowWideMin } from "../utils/customHooks.js";
+import StartMenu from "../components/startMenu.js";
 
 export default function StartScreen({
   gameMode,
@@ -43,22 +44,21 @@ export default function StartScreen({
 
   return (
     <div className={styles.container}>
-      <div className={styles.paddingText} />
+      {/* <div className={styles.paddingText} /> */}
       <div className={styles.menuContainer}>
         <div className={styles.menuRow}>
           <div className={styles.menuHeader}>Mode</div>
           <div className={styles.menuChoice}>
-            <div
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameMode == MODE.PRACTICE,
               })}
               onClick={() =>
                 dispatch({ type: ACTIONS.SET_MODE, payload: MODE.PRACTICE })
               }
-            >
-              Practice
-            </div>
-            <div
+              title="Latihan"
+            />
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameMode == MODE.RANKED,
               })}
@@ -66,76 +66,69 @@ export default function StartScreen({
                 dispatch({ type: ACTIONS.SET_MODE, payload: MODE.RANKED });
                 if (isCustom) dispatch({ type: ACTIONS.SET_TIME, payload: 60 });
               }}
-            >
-              Ranked
-            </div>
+              title="Kompetisi"
+            />
           </div>
         </div>
         <div className={styles.menuRow}>
-          <div className={styles.menuHeader}>Type</div>
+          <div className={styles.menuHeader}>Tipe</div>
           <div className={styles.menuChoice}>
-            <div
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameType == TYPE.PAULI,
               })}
               onClick={() =>
                 dispatch({ type: ACTIONS.SET_TYPE, payload: TYPE.PAULI })
               }
-            >
-              Pauli
-            </div>
-            <div
+              title="Pauli"
+            />
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameType == TYPE.KRAEPELIN,
               })}
               onClick={() => {
                 dispatch({ type: ACTIONS.SET_TYPE, payload: TYPE.KRAEPELIN });
               }}
-            >
-              Kraepelin
-            </div>
+              title={"Kraepelin"}
+            />
           </div>
         </div>
         <div className={styles.menuRow}>
-          <div className={styles.menuHeader}>Duration</div>
-          <div className={styles.menuChoice}>
-            <div
+          <div className={styles.menuHeader}>Durasi</div>
+          <div className={cn([styles.menuChoice], [styles.horizontalScroll])}>
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameDuration == 30,
               })}
               onClick={() => dispatch({ type: ACTIONS.SET_TIME, payload: 30 })}
-            >
-              30s
-            </div>
-            <div
+              title="30d"
+            />
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameDuration == 180,
               })}
               onClick={() => dispatch({ type: ACTIONS.SET_TIME, payload: 180 })}
-            >
-              3m
-            </div>
-            <div
+              title="3m"
+            />
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameDuration == 1200,
               })}
               onClick={() =>
                 dispatch({ type: ACTIONS.SET_TIME, payload: 1200 })
               }
-            >
-              20m
-            </div>
-            <div
+              title="20m"
+            />
+            <StartMenu
               className={cn([styles.clickable], {
                 [styles.activeChoice]: gameDuration == 3600,
               })}
               onClick={() =>
                 dispatch({ type: ACTIONS.SET_TIME, payload: 3600 })
               }
-            >
-              60m
-            </div>
-            <div
+              title="60m"
+            />
+            <StartMenu
               className={cn({
                 [styles.clickable]: gameMode == MODE.PRACTICE,
                 [styles.strikethrough]: gameMode == MODE.RANKED,
@@ -145,35 +138,36 @@ export default function StartScreen({
                 if (gameMode == MODE.RANKED) return;
 
                 const customSecond = parseInt(
-                  prompt("Enter duration in seconds")
+                  prompt(
+                    "Masukkan durasi dalam detik\n(cth: ketik 60 jika ingin durasi 1 menit)"
+                  )
                 );
                 if (!customSecond) return;
                 dispatch({ type: ACTIONS.SET_TIME, payload: customSecond });
               }}
-            >
-              Custom
-            </div>
+              title="Custom"
+            />
           </div>
         </div>
         <div className={styles.horizontalSep} />
         <div
-          className={cn([styles.clickable], [styles.startButton])}
+          className={cn([styles.startButton])}
           onClick={() => dispatch({ type: ACTIONS.INIT_GAME })}
         >
-          Start
+          Mulai
         </div>
       </div>
       <div className={styles.explanationText}>
         <div>
-          Add the numbers from{" "}
-          {gameType == TYPE.PAULI ? <u>top to bottom</u> : <u>bottom to top</u>}{" "}
-          and only type the <b>last digit</b> of the result.
+          Tambahkan angka-angka dari{" "}
+          {gameType == TYPE.PAULI ? <u>atas ke bawah</u> : <u>bawah ke atas</u>}{" "}
+          dan hanya ketik <b>digit terakhir</b> dari hasilnya.
         </div>
         <div>
-          Press {useGetBackKey()} to navigate backward and {useGetForwardKey()}{" "}
-          to navigate forward.
+          Tekan {useGetBackKey()} untuk menavigasi mundur dan{" "}
+          {useGetForwardKey()} untuk menavigasi maju.
         </div>
-        <div>Just overwrite your answer if you made a mistake.</div>
+        <div>Cukup ganti jawaban Anda jika Anda membuat kesalahan.</div>
       </div>
     </div>
   );
