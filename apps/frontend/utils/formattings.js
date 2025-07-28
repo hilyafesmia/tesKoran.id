@@ -11,11 +11,11 @@ export function parseSecond(second, withHour = false) {
   second = second % 60;
 
   let str = "";
-  if (withHour && hour) str += hour + "h";
+  if (withHour && hour) str += hour + "j";
   if (minute) str += minute + "m";
-  if (second) str += second + "s";
+  if (second) str += second + "d";
 
-  if (str.length == 0) str += "0s";
+  if (str.length == 0) str += "0d";
   return str;
 }
 

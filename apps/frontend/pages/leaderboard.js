@@ -48,7 +48,7 @@ export default function Leaderboard() {
   return (
     <div className={styles.container}>
       <p style={{ margin: 0, marginBottom: "8px" }}>
-        Only <b>ranked</b> test result is shown
+        Hanya hasil tes <b>Kompetisi</b> yang ditampilkan
       </p>
       <div className={styles.title}>
         <div className={styles.durationFilter}>

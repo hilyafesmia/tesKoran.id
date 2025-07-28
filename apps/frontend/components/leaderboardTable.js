@@ -57,7 +57,7 @@ export default function LeaderboardTable({
                   </td>
                 </tr>
                 <tr style={{ textAlign: "center" }}>
-                  <td>No data yet 🙁</td>
+                  <td>Belum ada data 🙁</td>
                 </tr>
               </React.Fragment>
             ) : (

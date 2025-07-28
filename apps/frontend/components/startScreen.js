@@ -5,6 +5,7 @@ import { useWindowWideMin } from "../utils/customHooks.js";
 import StartMenu from "../components/startMenu.js";
 import { useState, useEffect } from "react";
 import Modal from "../components/modal.js";
+import Link from "next/link";
 
 export default function StartScreen({
   gameMode,
@@ -205,6 +206,19 @@ export default function StartScreen({
         </div>
       </div>
       <div className={styles.explanationText}>
+        <div>
+          {gameMode == MODE.PRACTICE ? (
+            <p>Hasil tes hanya untuk Anda sendiri</p>
+          ) : (
+            <p>
+              Hasil tes Anda akan{" "}
+              <b>
+                masuk <Link href="/leaderboard">leaderboard</Link>
+              </b>{" "}
+              dan dibandingkan dengan pengguna lain.
+            </p>
+          )}
+        </div>
         <div>
           Tambahkan angka-angka dari{" "}
           {gameType == TYPE.PAULI ? <u>atas ke bawah</u> : <u>bawah ke atas</u>}{" "}

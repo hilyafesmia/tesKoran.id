@@ -400,24 +400,26 @@ export default function Profile() {
                 onClick={toggleSettingsModal}
               />
             </div>
-            <div className={styles.statsLabel}>{`Joined ${new Date(
+            <div className={styles.statsLabel}>{`Bergabung ${new Date(
               data.user.created_on
             ).toLocaleDateString()}`}</div>
           </div>
           <div className={styles.profileStats}>
-            <div className={styles.statsLabel}>test completed</div>
+            <div className={styles.statsLabel}>Tes Selesai</div>
             <h1>{data.total_test}</h1>
           </div>
           <div className={styles.profileStats}>
-            <div className={styles.statsLabel}>total time</div>
+            <div className={styles.statsLabel}>Total Waktu</div>
             <h1>{parseSecond(data.total_time)}</h1>
           </div>
           <div className={styles.profileStats}>
-            <div className={styles.statsLabel}>average apm</div>
+            <div className={styles.statsLabel}>
+              Rerata APM (Addition per Minute)
+            </div>
             <h1>{toFixed(data.average_apm)}</h1>
           </div>
           <div className={styles.profileStats}>
-            <div className={styles.statsLabel}>average accuracy</div>
+            <div className={styles.statsLabel}>Rerata Akurasi</div>
             <h1>{toFixed(data.average_accuracy * 100)}%</h1>
           </div>
         </div>
@@ -429,7 +431,7 @@ export default function Profile() {
               flexDirection: "row",
             }}
           >
-            <h2>Test History</h2>
+            <h2>Riwayat Tes</h2>
             <div
               style={{ display: "flex", alignItems: "center" }}
               onClick={() => setRankOnlyHistory((prev) => !prev)}
@@ -440,7 +442,9 @@ export default function Profile() {
                 checked={rankOnlyHistory}
                 readOnly
               />
-              <div className={styles.statsLabel}>show ranked test only</div>
+              <div className={styles.statsLabel}>
+                Tampilkan hanya tes Kompetisi
+              </div>
             </div>
           </div>
           <Chart
@@ -458,7 +462,7 @@ export default function Profile() {
               flexDirection: "row",
             }}
           >
-            <h2>Personal Leaderboard</h2>
+            <h2>Leaderboard Pribadi</h2>
             <div
               style={{ display: "flex", alignItems: "center" }}
               onClick={() => setRankOnlyLeaderboard((prev) => !prev)}
