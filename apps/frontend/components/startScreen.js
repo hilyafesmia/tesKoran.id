@@ -3,6 +3,8 @@ import cn from "classnames";
 import { ACTIONS, MODE, TYPE } from "../utils/constants.js";
 import { useWindowWideMin } from "../utils/customHooks.js";
 import StartMenu from "../components/startMenu.js";
+import { useState, useEffect } from "react";
+import Modal from "../components/modal.js";
 
 export default function StartScreen({
   gameMode,
@@ -10,6 +12,28 @@ export default function StartScreen({
   gameType,
   dispatch,
 }) {
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  function handleStartClick() {
+    if (localStorage.getItem("skipTutorial") === "true") {
+      setShowTutorial(false);
+      dispatch({ type: ACTIONS.INIT_GAME });
+    }
+    setShowTutorial(true);
+  }
+
+  function handleDismissTutorial() {
+    setShowTutorial(false);
+  }
+
+  function handleInitGame() {
+    if (document.getElementById("dontShow").checked) {
+      localStorage.setItem("skipTutorial", "true");
+    }
+    setShowTutorial(false);
+    dispatch({ type: ACTIONS.INIT_GAME });
+  }
+
   function useGetBackKey() {
     if (useWindowWideMin(600))
       return <span className={styles.codeText}>{"<"}</span>;
@@ -44,7 +68,33 @@ export default function StartScreen({
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.paddingText} /> */}
+      <Modal visible={showTutorial} onDismiss={handleDismissTutorial}>
+        <div className={styles.modal}>
+          <h2>Cara Mengerjakan Tes</h2>
+          <p>
+            Tambahkan kedua angka dan hanya ketik <u>digit terakhir</u> dari
+            hasilnya
+          </p>
+          <p>Contoh: 9 + 1 = 10, maka yang diketik hanya 0 nya saja.</p>
+          <img
+            style={{ width: "48px", margin: "auto" }}
+            src="assets/sampleanswer.svg"
+          />
+          <p>Catatan:</p>
+          <ul>
+            <li>Tekan {useGetBackKey()} untuk menavigasi mundur.</li>
+            <li>Tekan {useGetForwardKey()} untuk menavigasi maju.</li>
+            <li>Cukup ganti jawaban Anda jika Anda membuat kesalahan.</li>
+          </ul>
+          <div>
+            <input type="checkbox" id="dontShow" />
+            <label htmlFor="dontShow"> Jangan tampilkan tutorial lagi</label>
+          </div>
+          <div className={styles.startButton} onClick={handleInitGame}>
+            Saya Mengerti
+          </div>
+        </div>
+      </Modal>
       <div className={styles.menuContainer}>
         <div className={styles.menuRow}>
           <div className={styles.menuHeader}>Mode</div>
@@ -150,10 +200,7 @@ export default function StartScreen({
           </div>
         </div>
         <div className={styles.horizontalSep} />
-        <div
-          className={cn([styles.startButton])}
-          onClick={() => dispatch({ type: ACTIONS.INIT_GAME })}
-        >
+        <div className={styles.startButton} onClick={handleStartClick}>
           Mulai
         </div>
       </div>

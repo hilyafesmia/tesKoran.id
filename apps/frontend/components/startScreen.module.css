@@ -137,6 +137,20 @@
   overflow-x: scroll;
 }
 
+.modal {
+  width: 90%;
+  margin: auto;
+  max-width: 512px;
+  background-color: whitesmoke;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 32px;
+  gap: 16px;
+}
+
 @media only screen and (max-width: 600px) {
   .menuContainer {
     width: 100%;
